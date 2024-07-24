@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Google Keep</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+        #container {
+            position: absolute;
+            background-color: rgb(49, 48, 48);
+            opacity: 0.8;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+        }
+        #lista {
+            list-style-type: none;
+            padding: 0;
+        }
+        #lista li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        #texto-do-usuario {
+            margin-top: 10px;
+            border-radius: 40px;
+            border: none;
+            background-color: gray;
+           
+        }
+        #texto-do-usuario::placeholder {
+             color: black;
+        }
+        .btnremover{
+            background-color: black;
+            border: none;
+            color: red;
+            border-radius: 100%;
+        }
+        .btnadd{
+            border-radius: 40px;
+            border: none;
+            background-color: green;
+            color: white;
+        }
+        h1{
+            font-size: 20px;
+            color: gray;
+        }
+
+    </style>
+    <script>
+        let indiceDaLista = 0;
+
+        function adicionarItem() {
+            const inputDoUsuario = document.getElementById('texto-do-usuario');
+            const textoDigitado = inputDoUsuario.value;
+
+            if (textoDigitado.trim() === "") {
+                return;
+            }
+
+            inputDoUsuario.value = '';
+
+            const lista = document.getElementById('lista');
+
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <input type="checkbox"  name="item-${indiceDaLista}" id="item-${indiceDaLista}">
+                ${textoDigitado}
+                <button class="btnremover" onclick="removerItem(this)">X</button>
+            `;
+
+            lista.appendChild(li);
+            indiceDaLista++;
+        }
+
+        function removerItem(botao) {
+            const li = botao.parentNode;
+            li.parentNode.removeChild(li);
+        }
+    </script>
+</head>
+<body>
+    <div id="container">
+        <h1>Itens na lista:</h1>
+        <ul id="lista">
+        </ul>
+        <input type="text" placeholder="Cenoura, pão, alface..." id="texto-do-usuario">
+        <button class="btnadd" onclick="adicionarItem()">Adicionar</button>
+    </div>
+</body>
+</html>
